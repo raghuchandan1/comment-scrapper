@@ -17,12 +17,22 @@ def main():
     api_version = "v3"
     DEVELOPER_KEY = "AIzaSyAaEMuw_JogB-rarI2WvODzKYqwcRZC9vs"
 
+    # youtube = googleapiclient.discovery.build(
+    #     api_service_name, api_version, developerKey = DEVELOPER_KEY)
+
+    # request = youtube.comments().list(
+    #     part="snippet",
+    #     parentId="UgzDE2tasfmrYLyNkGt4AaABAg"
+    # )
+    # response = request.execute()
+
+    # print(response)
     youtube = googleapiclient.discovery.build(
         api_service_name, api_version, developerKey = DEVELOPER_KEY)
 
-    request = youtube.comments().list(
-        part="snippet",
-        parentId="UgzDE2tasfmrYLyNkGt4AaABAg"
+    request = youtube.commentThreads().list(
+        part="snippet,replies",
+        videoId="_VB39Jo8mAQ"
     )
     response = request.execute()
 
