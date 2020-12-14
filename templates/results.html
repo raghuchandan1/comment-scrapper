@@ -1,0 +1,121 @@
+{% extends "index.html" %}
+{% block title %}Results{% endblock %}
+
+<!-- {% block message %}
+    <hr />
+    <h4 class="text-center">MESSAGE</h4>
+    <p class="text-center"><i>{{query}}</i></p>
+{% endblock %} -->
+
+{% block content %}
+<div id="videoDetailsDiv" class="container-fluid p-4">
+    <div class="text-center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/1280px-YouTube_full-color_icon_%282017%29.svg.png"
+            width="70" height="50" class="d-inline rounded" alt="" loading="lazy">
+        <h1 class="display-4">Video Details</h1>
+        <hr class="my-4 col-11">
+    </div>
+    <div class="row align-items-center">
+        <div class="col-sm-6 mx-auto">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe id="videoPlayer" class="embed-responsive-item" src={{ data.ytURL }}></iframe>
+            </div>
+
+            <!-- <p>{{ data.ytURL }}</p> -->
+
+        </div>
+        <div class="w-100 m-2"></div>
+        <div class="col-sm-6 mx-auto">
+            <div class="row text-center">
+                <div class="col">
+                    <h4>Views</h4>
+                    <p>{{ data.views }}</p>
+                </div>
+                <div class="col">
+                    <h4>Likes</h4>
+                    <p>{{ data.likes }}</p>
+                </div>
+                <div class="col">
+                    <h4>Dislikes</h4>
+                    <p>{{ data.dislikes }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div id="commentAnalysisDiv" class="container-fluid p-4">
+    <div class="text-center">
+        <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/bubble-icon.png" width="70" height="70"
+            class="d-inline rounded" alt="" loading="lazy">
+        <h1 class="display-4">Comment Analysis</h1>
+        <hr class="my-4 col-11">
+    </div>
+    <div class="col-sm-6 mx-auto" id="plotDiv">
+
+    </div>
+    <script>
+        var data = [
+            {
+                x: ['Negative', 'Neutral', 'Positive'],
+                y: [20, 14, 23],
+                type: 'bar'
+            }
+        ];
+
+        Plotly.newPlot('plotDiv', data);
+    </script>
+</div>
+<div class="alan-btn"></div>
+
+
+<script type="text/javascript" src="https://studio.alan.app/web/lib/alan_lib.js"></script>
+<script>
+    var alanBtnInstance = alanBtn({
+        key: "8b6418beba0d6efb08f43260570725672e956eca572e1d8b807a3e2338fdd0dc/stage",
+        onCommand: function (commandData) {
+            if (commandData.command === "submit") {
+                //call client code that will react on the received command
+                submit();
+            }
+            else if (commandData.command === "fetch_results_neutral") {
+                fetch_results_neutral();
+            }
+            else if (commandData.command === "fetch_results_positive") {
+                fetch_results_positive();
+            }
+            else if (commandData.command === "fetch_results_negative") {
+                fetch_results_negative();
+            }
+            else if (commandData.command === "play_video"){
+                play_video();
+            }
+        },
+        rootEl: document.getElementById("alan-btn"),
+    });
+    function submit() {
+        document.getElementById("analyzeCommentsButton").click();
+        console.log("Submitted");
+    }
+    function fetch_results_positive() {
+        console.log("Feteched positive results")
+    }
+    function fetch_results_negative() {
+        console.log("Feteched negative results")
+    }
+    function fetch_results_neutral() {
+        console.log("Feteched neutral results")
+    }
+    function play_video() {
+
+        jQuery(function ($) {
+            $("#videoPlayer")[0].src += "?rel=0&autoplay=1";
+            console.log($("#videoPlayer")[0].src)
+        });
+    }
+</script>
+<!-- <script src="{{url_for('static', filename='autoplay.js')}}"></script>
+<button type="button" id="testButton">Test Auto Play</button>  -->
+{% endblock %}
