@@ -32,7 +32,7 @@ def main():
 
     request = youtube.commentThreads().list(
         part="snippet,replies",
-        maxResults = 1,
+        maxResults = 10,
         videoId="_VB39Jo8mAQ"
     )
     response = request.execute()
