@@ -46,15 +46,18 @@
         <div class="container-fluid">
             <h1 class="display-4 text-center">Youtube Comment Analysis</h1>
             <hr class="my-4">
-            <form class="row g-2" action="/results" method="post">
-                <input type="url" class="form-control form-control-lg col-12 m-4 mx-auto" id="youtubeURL"
+            <form class="row g-2"  id="youtubeURLForm" onsubmit="return validateForm()" action="/results" method="post">
+                <input type="url" class="form-control form-control-lg col-12 mx-auto" id="youtubeURL"
                     name="youtubeURL" placeholder="Enter the YouTube URL">
                 <!-- <div class="input-group mb-3">
                     <span class="input-group-text" id="youtube-baseURL">https://www.youtube.com/watch?v=</span>
                     <input type="text" class="form-control" id="youtubeID" aria-describedby="youtube-baseURL"
                         placeholder="Enter the YouTube Video ID">
                 </div> -->
-                <button type="submit" class="btn btn-lg btn-success col-2 mx-auto"
+                <div class="alert alert-danger m-4 col-12 mx-auto text-center" role="alert" id="errorMessage" style="display: none;">
+                    Please enter a valid URL in the form https://www.youtube.com/watch?v=videoID
+                </div>
+                <button type="submit" class="btn btn-lg btn-success m-2 col-2 mx-auto"
                     id="analyzeCommentsButton">Analyze</button>
                 <!-- <button type="button" class="btn btn-lg btn-success col-2 mx-auto" id="analyzeComments">Analyze</button> -->
             </form>
@@ -127,40 +130,7 @@
 
     <div class="alan-btn"></div>
     <script type="text/javascript" src="https://studio.alan.app/web/lib/alan_lib.js"></script>
-    <script>
-        var alanBtnInstance = alanBtn({
-            key: "8b6418beba0d6efb08f43260570725672e956eca572e1d8b807a3e2338fdd0dc/stage",
-            onCommand: function (commandData) {
-                if (commandData.command === "submit") {
-                    //call client code that will react on the received command
-                    submit();
-                }
-                else if (commandData.command === "fetch_results_neutral") {
-                    fetch_results_neutral();
-                }
-                else if (commandData.command === "fetch_results_positive") {
-                    fetch_results_positive();
-                }
-                else if (commandData.command === "fetch_results_negative") {
-                    fetch_results_negative();
-                }
-            },
-            rootEl: document.getElementById("alan-btn"),
-        });
-        function submit() {
-            document.getElementById("analyzeCommentsButton").click();
-            console.log("Submitted");
-        }
-        function fetch_results_positive() {
-            console.log("Feteched positive results")
-        }
-        function fetch_results_negative() {
-            console.log("Feteched negative results")
-        }
-        function fetch_results_neutral() {
-            console.log("Feteched neutral results")
-        }
-    </script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
     {% block content %}
     {% endblock %}
 

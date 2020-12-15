@@ -55,7 +55,7 @@ def get_comments_again():
     return render_template("results.html", data=data)    
 
 def main():
-    app.run(host='0.0.0.0', port=3001, debug=True)
+    app.run(host='0.0.0.0', port=3333, debug=True)
 
 
 if __name__ == '__main__':
